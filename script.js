@@ -1,4 +1,4 @@
-/* ReshBake — interaction + opening animation */
+/* ReshBake — interaction + opening animation — cache refresh */
 
 const openingStyles = document.createElement("style");
 openingStyles.textContent = `
@@ -26,11 +26,12 @@ const finishLoading=()=>{
   if(loadingFinished)return;
   loadingFinished=true;
   document.body.classList.remove("loading");
+  document.body.style.overflow="";
   loader?.classList.add("loaded");
   document.querySelectorAll(".hero .reveal").forEach((el,i)=>setTimeout(()=>el.classList.add("visible"),120+i*140));
 };
-window.addEventListener("load",()=>setTimeout(finishLoading,1350),{once:true});
-setTimeout(finishLoading,3000);
+window.addEventListener("load",()=>setTimeout(finishLoading,1700),{once:true});
+setTimeout(finishLoading,4500);
 
 const menuToggle=document.querySelector(".menu-toggle"),nav=document.querySelector(".nav"),header=document.querySelector(".site-header");
 menuToggle?.addEventListener("click",()=>{
