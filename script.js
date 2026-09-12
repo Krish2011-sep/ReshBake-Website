@@ -4,7 +4,6 @@ const openingStyles = document.createElement("style");
 openingStyles.textContent = `
 body.loading{overflow:hidden}
 .page-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#3b261e;color:#fffaf5;opacity:1;visibility:visible;transition:opacity .8s cubic-bezier(.22,1,.36,1),visibility .8s}
-.page-loader.loaded{opacity:0;visibility:hidden;pointer-events:none}
 .loader-inner{position:relative;width:min(360px,78vw);text-align:center;display:flex;flex-direction:column;align-items:center;gap:.45rem;animation:loaderEnter 1s cubic-bezier(.22,1,.36,1) both}
 .loader-mark{width:78px;height:78px;border:1px solid rgba(255,250,245,.35);border-radius:50%;display:grid;place-items:center;font-family:"Playfair Display",Georgia,serif;font-size:1.45rem;letter-spacing:.05em;animation:markPulse 1.8s ease-in-out infinite}
 .loader-inner>span{font-family:"DM Sans",Arial,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.28em;margin-left:.28em}
@@ -84,10 +83,11 @@ document.addEventListener("keydown",e=>{
   if(e.key==="Escape"&&nav?.classList.contains("open")){nav.classList.remove("open");menuToggle?.classList.remove("open");menuToggle?.setAttribute("aria-expanded","false");}
 });
 
-/* Stable local image assets. The previous JPG files were malformed binary files, so the page now uses valid SVG assets that render reliably on GitHub Pages and desktop browsers. */
 const PHOTO_BASE = "./assets/";
 const heroImage = `${PHOTO_BASE}hero-bakery.svg`;
 const featureImage = `${PHOTO_BASE}bakery-feature.svg`;
+const originalImage1 = `${PHOTO_BASE}gallery-1.jpg`;
+const originalImage2 = `${PHOTO_BASE}gallery-2.jpg`;
 
 const photoCSS = document.createElement("style");
 photoCSS.textContent = `
@@ -97,17 +97,25 @@ photoCSS.textContent = `
 .image-placeholder .placeholder-cake,.image-placeholder .placeholder-shine{display:none}
 .image-placeholder>span{font-size:0}
 .image-placeholder>span:after{content:"ReshBake visual";font-size:.7rem}
-.visual-cake,.visual-cupcake,.visual-brownie,.visual-custom{background-image:url("${heroImage}");background-size:cover;background-position:center;background-repeat:no-repeat}
-.visual-cake,.visual-cupcake,.visual-brownie,.visual-custom{background-blend-mode:normal}
+.visual-cake,.visual-cupcake,.visual-brownie,.visual-custom{background-image:url("${heroImage}");background-size:cover;background-position:center;background-repeat:no-repeat;background-blend-mode:normal}
 .product-visual span,.product-visual i{opacity:0}
 .gallery-tile{background-image:url("${heroImage}");background-size:cover;background-position:center;background-repeat:no-repeat}
 .gallery-tile.g5{background-image:url("${featureImage}");background-position:center}
 .gallery-tile span,.gallery-tile b{background:rgba(38,29,24,.72);padding:.35rem .5rem;border-radius:6px}
-@media(max-width:1000px){.hero-art{min-height:390px}}
-@media(max-width:600px){.hero-art{border-radius:24px;min-height:360px;transform:none}.image-placeholder{min-height:480px}.product-visual{height:260px}}
+@media(max-width:1000px){
+  .hero-art{min-height:390px}
+  .image-placeholder{background-image:url("${originalImage1}"),url("${featureImage}");}
+  .visual-cake,.visual-cupcake,.visual-brownie,.visual-custom{background-image:url("${originalImage1}"),url("${heroImage}");}
+  .gallery-tile{background-image:url("${originalImage1}"),url("${heroImage}");}
+  .gallery-tile.g5{background-image:url("${originalImage2}"),url("${featureImage}");}
+}
+@media(max-width:600px){
+  .hero-art{border-radius:24px;min-height:360px;transform:none}
+  .image-placeholder{min-height:480px}
+  .product-visual{height:260px}
+}
 `;
 document.head.appendChild(photoCSS);
 
 document.querySelector(".hero-art")?.setAttribute("aria-label","ReshBake bakery visual");
-
 document.querySelector(".gallery-section .center-heading p:not(.eyebrow)")?.replaceChildren(document.createTextNode("A selection of ReshBake cakes, bakes and custom creations."));
