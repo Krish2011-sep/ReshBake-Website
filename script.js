@@ -1,13 +1,36 @@
-document.body.classList.add("loading");
+/* ReshBake — interaction + opening animation */
 
+const openingStyles = document.createElement("style");
+openingStyles.textContent = `
+body.loading{overflow:hidden}
+.page-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#3b261e;color:#fffaf5;opacity:1;visibility:visible;transition:opacity .8s cubic-bezier(.22,1,.36,1),visibility .8s}
+.page-loader.loaded{opacity:0;visibility:hidden;pointer-events:none}
+.loader-inner{position:relative;width:min(360px,78vw);text-align:center;display:flex;flex-direction:column;align-items:center;gap:.45rem;animation:loaderEnter 1s cubic-bezier(.22,1,.36,1) both}
+.loader-mark{width:78px;height:78px;border:1px solid rgba(255,250,245,.35);border-radius:50%;display:grid;place-items:center;font-family:"Playfair Display",Georgia,serif;font-size:1.45rem;letter-spacing:.05em;animation:markPulse 1.8s ease-in-out infinite}
+.loader-inner>span{font-family:"DM Sans",Arial,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.28em;margin-left:.28em}
+.loader-inner>small{font-family:"Playfair Display",Georgia,serif;font-style:italic;color:#d9b294;font-size:.9rem}
+.loader-line{width:100%;height:2px;background:rgba(255,250,245,.16);margin-top:1.35rem;overflow:hidden;border-radius:99px}
+.loader-line i{display:block;width:0;height:100%;background:#d99c70;animation:loaderProgress 1.35s cubic-bezier(.22,1,.36,1) forwards}
+body:not(.loading) .hero .reveal{opacity:1;transform:none}
+@keyframes loaderEnter{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes markPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(217,156,112,0)}50%{transform:scale(1.05);box-shadow:0 0 0 12px rgba(217,156,112,.08)}}
+@keyframes loaderProgress{from{width:0}to{width:100%}}
+@media(prefers-reduced-motion:reduce){.page-loader,.loader-inner,.loader-mark,.loader-line i{animation:none!important;transition:none!important}.loader-line i{width:100%}}
+`;
+document.head.appendChild(openingStyles);
+
+document.body.classList.add("loading");
 const loader=document.querySelector(".page-loader");
+let loadingFinished=false;
 const finishLoading=()=>{
+  if(loadingFinished)return;
+  loadingFinished=true;
   document.body.classList.remove("loading");
   loader?.classList.add("loaded");
   document.querySelectorAll(".hero .reveal").forEach((el,i)=>setTimeout(()=>el.classList.add("visible"),120+i*140));
 };
-window.addEventListener("load",()=>setTimeout(finishLoading,950),{once:true});
-setTimeout(finishLoading,2200);
+window.addEventListener("load",()=>setTimeout(finishLoading,1350),{once:true});
+setTimeout(finishLoading,3000);
 
 const menuToggle=document.querySelector(".menu-toggle"),nav=document.querySelector(".nav"),header=document.querySelector(".site-header");
 menuToggle?.addEventListener("click",()=>{
