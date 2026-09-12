@@ -3,7 +3,8 @@
 const openingStyles = document.createElement("style");
 openingStyles.textContent = `
 body.loading{overflow:hidden}
-.page-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#3b261e;color:#fffaf5;opacity:1;visibility:visible;transition:opacity .8s cubic-bezier(.22,1,.36,1),visibility .8s}
+.page-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#3b261e;color:#fffaf5;opacity:1;visibility:visible;pointer-events:auto;transition:opacity .8s cubic-bezier(.22,1,.36,1),visibility .8s}
+.page-loader.loaded{opacity:0;visibility:hidden;pointer-events:none}
 .loader-inner{position:relative;width:min(360px,78vw);text-align:center;display:flex;flex-direction:column;align-items:center;gap:.45rem;animation:loaderEnter 1s cubic-bezier(.22,1,.36,1) both}
 .loader-mark{width:78px;height:78px;border:1px solid rgba(255,250,245,.35);border-radius:50%;display:grid;place-items:center;font-family:"Playfair Display",Georgia,serif;font-size:1.45rem;letter-spacing:.05em;animation:markPulse 1.8s ease-in-out infinite}
 .loader-inner>span{font-family:"DM Sans",Arial,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.28em;margin-left:.28em}
