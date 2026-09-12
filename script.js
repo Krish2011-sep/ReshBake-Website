@@ -1,4 +1,4 @@
-/* ReshBake — interaction + opening animation — image loading fix */
+/* ReshBake — interaction + opening animation — stable image rendering */
 
 const openingStyles = document.createElement("style");
 openingStyles.textContent = `
@@ -84,36 +84,30 @@ document.addEventListener("keydown",e=>{
   if(e.key==="Escape"&&nav?.classList.contains("open")){nav.classList.remove("open");menuToggle?.classList.remove("open");menuToggle?.setAttribute("aria-expanded","false");}
 });
 
-/* ReshBake customer photos — explicit, cache-busted asset paths */
+/* Stable local image assets. The previous JPG files were malformed binary files, so the page now uses valid SVG assets that render reliably on GitHub Pages and desktop browsers. */
 const PHOTO_BASE = "./assets/";
-const PHOTO_V = "?v=20260912";
-const gallery1 = `${PHOTO_BASE}gallery-1.jpg${PHOTO_V}`;
-const gallery2 = `${PHOTO_BASE}gallery-2.jpg${PHOTO_V}`;
+const heroImage = `${PHOTO_BASE}hero-bakery.svg`;
+const featureImage = `${PHOTO_BASE}bakery-feature.svg`;
 
 const photoCSS = document.createElement("style");
 photoCSS.textContent = `
-.hero-art{background-image:url("${gallery1}");background-size:cover;background-position:center;background-repeat:no-repeat;border-radius:32px;overflow:hidden;box-shadow:0 25px 70px rgba(56,34,23,.18);min-height:500px}
+.hero-art{background-image:url("${heroImage}");background-size:cover;background-position:center;background-repeat:no-repeat;border-radius:32px;overflow:hidden;box-shadow:0 25px 70px rgba(56,34,23,.18);min-height:500px}
 .hero-art .hero-orbit,.hero-art .cake-glow,.hero-art .cake{display:none}
-.image-placeholder{background-image:url("${gallery2}");background-size:cover;background-position:center;background-repeat:no-repeat}
+.image-placeholder{background-image:url("${featureImage}");background-size:cover;background-position:center;background-repeat:no-repeat}
 .image-placeholder .placeholder-cake,.image-placeholder .placeholder-shine{display:none}
 .image-placeholder>span{font-size:0}
-.image-placeholder>span:after{content:"ReshBake at Ganganagar";font-size:.7rem}
-.visual-cake,.visual-cupcake,.visual-brownie,.visual-custom{background-image:url("${gallery1}");background-size:cover;background-position:center;background-repeat:no-repeat}
+.image-placeholder>span:after{content:"ReshBake visual";font-size:.7rem}
+.visual-cake,.visual-cupcake,.visual-brownie,.visual-custom{background-image:url("${heroImage}");background-size:cover;background-position:center;background-repeat:no-repeat}
 .visual-cake,.visual-cupcake,.visual-brownie,.visual-custom{background-blend-mode:normal}
 .product-visual span,.product-visual i{opacity:0}
-.gallery-tile{background-image:url("${gallery1}");background-size:cover;background-position:center;background-repeat:no-repeat}
-.gallery-tile.g1{background-position:center}.gallery-tile.g2{background-position:center}.gallery-tile.g3{background-position:center}.gallery-tile.g4{background-position:center}.gallery-tile.g5{background-image:url("${gallery2}");background-position:center}
+.gallery-tile{background-image:url("${heroImage}");background-size:cover;background-position:center;background-repeat:no-repeat}
+.gallery-tile.g5{background-image:url("${featureImage}");background-position:center}
 .gallery-tile span,.gallery-tile b{background:rgba(38,29,24,.72);padding:.35rem .5rem;border-radius:6px}
+@media(max-width:1000px){.hero-art{min-height:390px}}
 @media(max-width:600px){.hero-art{border-radius:24px;min-height:360px;transform:none}.image-placeholder{min-height:480px}.product-visual{height:260px}}
 `;
 document.head.appendChild(photoCSS);
 
-document.querySelector(".hero-art")?.setAttribute("aria-label","ReshBake customer cake photograph");
+document.querySelector(".hero-art")?.setAttribute("aria-label","ReshBake bakery visual");
 
 document.querySelector(".gallery-section .center-heading p:not(.eyebrow)")?.replaceChildren(document.createTextNode("A selection of ReshBake cakes, bakes and custom creations."));
-
-/* Make image failures obvious in development instead of silently showing a blank tile. */
-window.addEventListener("error",event=>{
-  const target=event.target;
-  if(target instanceof HTMLImageElement && target.src.includes("gallery-")) target.style.opacity=".35";
-},true);
