@@ -83,3 +83,24 @@ if(matchMedia("(pointer:fine)").matches){
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"&&nav?.classList.contains("open")){nav.classList.remove("open");menuToggle?.classList.remove("open");menuToggle?.setAttribute("aria-expanded","false");}
 });
+
+/* ReshBake customer photos */
+const photoCSS = document.createElement("style");
+photoCSS.textContent = `
+.hero-art{background-image:url("assets/gallery-1.jpg");background-size:500% 100%;background-position:50% 0;background-repeat:no-repeat;border-radius:32px;overflow:hidden;box-shadow:0 25px 70px rgba(56,34,23,.18)}
+.hero-art .hero-orbit,.hero-art .cake-glow,.hero-art .cake{display:none}
+.image-placeholder{background-image:url("assets/gallery-2.jpg");background-size:500% 100%;background-position:0 0;background-repeat:no-repeat}
+.image-placeholder .placeholder-cake,.image-placeholder .placeholder-shine{display:none}
+.image-placeholder>span{font-size:0}
+.image-placeholder>span:after{content:"ReshBake at Ganganagar";font-size:.7rem}
+.visual-cake,.visual-cupcake,.visual-brownie,.visual-custom{background-image:url("assets/gallery-1.jpg");background-size:500% 100%;background-repeat:no-repeat}
+.visual-cake{background-position:0 0}.visual-cupcake{background-position:25% 0}.visual-brownie{background-position:50% 0}.visual-custom{background-position:75% 0}
+.product-visual span,.product-visual i{opacity:0}
+.gallery-tile{background-image:url("assets/gallery-1.jpg");background-size:500% 100%;background-repeat:no-repeat}
+.gallery-tile.g1{background-position:0 0}.gallery-tile.g2{background-position:25% 0}.gallery-tile.g3{background-position:50% 0}.gallery-tile.g4{background-position:75% 0}.gallery-tile.g5{background-image:url("assets/gallery-2.jpg");background-position:100% 0}
+.gallery-tile span,.gallery-tile b{background:rgba(38,29,24,.72);padding:.35rem .5rem;border-radius:6px}
+@media(max-width:600px){.hero-art{border-radius:24px;min-height:360px;transform:none}.image-placeholder{min-height:480px}.product-visual{height:260px}}
+`;
+document.head.appendChild(photoCSS);
+document.querySelector(".hero-art")?.setAttribute("aria-label","ReshBake customer cake photograph");
+document.querySelector(".gallery-section .center-heading p:not(.eyebrow)")?.replaceChildren(document.createTextNode("A selection of ReshBake cakes, bakes and custom creations."));
