@@ -11,6 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .instagram-link{display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;margin-top:1rem;border:1px solid #d8c5b6;border-radius:50%;background:#fff;color:var(--brown2);transition:transform .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease}
+    .instagram-link:hover{transform:translateY(-4px);background:var(--brown2);color:#fff;box-shadow:0 12px 28px rgba(56,34,23,.16)}
+    .instagram-link svg{width:25px;height:25px;display:block}
+    .instagram-link:focus-visible{outline:3px solid #c88455;outline-offset:4px}
+  </style>
 </head>
 <body>
   <div class="page-loader" aria-hidden="true">
@@ -98,7 +104,13 @@
       <div class="map-card reveal reveal-right"><div class="map-grid"></div><div class="map-pin">●</div><div class="map-label"><b>ReshBake</b><span>Ganganagar, Nagpur</span></div><a href="https://www.google.com/maps/search/?api=1&query=ReshBake%20Taj%20Kirana%20Sandipani%20School%20Wadi%20Road%20Nagpur%20440013" target="_blank" rel="noopener">Get directions <span>↗</span></a></div>
     </section>
 
-    <section class="social-section reveal"><p class="eyebrow">SOCIAL</p><h2>Follow ReshBake</h2><p>Official social links can be added once confirmed by the business.</p><span class="social-placeholder">Instagram link — add official handle</span></section>
+    <section class="social-section reveal"><p class="eyebrow">SOCIAL</p><h2>Follow ReshBake</h2><p>Connect with ReshBake on Instagram.</p><a class="instagram-link" href="https://www.instagram.com/reshbakeovenlovesflour/" target="_blank" rel="noopener noreferrer" aria-label="Open ReshBake on Instagram" title="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+        <circle cx="12" cy="12" r="4.2"></circle>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
+      </svg>
+    </a></section>
   </main>
 
   <footer><div class="footer-main"><div class="brand footer-brand"><span class="brand-mark">RB</span><span><strong>RESHBAKE</strong><small>Oven Loves Flour</small></span></div><p>Ganganagar, Nagpur · 440013</p><a href="https://wa.me/918459105692" target="_blank" rel="noopener">Order on WhatsApp ↗</a></div><div class="footer-bottom"><span>© 2026 ReshBake. All rights reserved.</span><a href="#top">Back to top ↑</a></div></footer>
